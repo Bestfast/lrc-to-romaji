@@ -1,8 +1,5 @@
 import streamlit as st
-import cutlet
 import lrcparser
-import shutil
-import os
 import transliterate
 
 # Read lyrics from file

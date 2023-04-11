@@ -51,9 +51,8 @@ def transliterate_last_accessed_file(folder_path):
     # Translate each line and transliterate from Japanese to Romaji
     translations = []
     for line in lyrics.lyrics:
-        if line.strip() != '':
-            romaji = transliterate(line)
-            translations.append(romaji)
+        romaji = transliterate(line)
+        translations.append(romaji)
     
     # Create a backup of the original file and save the transliterated lyrics
     backup_file(file)
