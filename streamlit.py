@@ -1,9 +1,23 @@
 import streamlit as st
 import lrcparser
 import transliterate
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+fh = logging.FileHandler('streamlit.log', encoding='utf-8')
+fh.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+logger.addHandler(fh)
+logger.addHandler(ch)
 
 # Read lyrics from file
 file = transliterate.get_last_accessed_file(r"C:\Users\Bestfast\AppData\Roaming\foobar2000-v2\lyrics")
+logger.info(f'Last accessed file: {file}')
 lyrics = lrcparser.LrcParser(file)
 
 # Translate each line and transliterate from Japanese to Romaji

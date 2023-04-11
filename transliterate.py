@@ -3,6 +3,9 @@ import lrcparser
 import os
 import langid
 import shutil
+import logging
+
+logger = logging.getLogger(__name__)
 
 def transliterate(text):
     # Transliterate text from Japanese to Romaji using the Cutlet library
@@ -15,6 +18,7 @@ def backup_file(file_path):
         lang, _ = langid.classify(text)
     if lang == "ja":
         backup_path = file_path + '.bak'
+        logger.info(f"Backing up file {file_path} to {backup_path}")
         shutil.copy(file_path, backup_path)
 
 def save_romaji_to_lrc(lyrics, translations, output_file):
@@ -35,6 +39,7 @@ def save_romaji_to_lrc(lyrics, translations, output_file):
         # Write transliterated lyrics with timestamps
         for timestamp, line in zip(lyrics.timestamps, translations):
             f.write('[{}]{}\n'.format(timestamp, line))
+        logger.info("Saving the transliterated lyrics to LRC file")
 
 def get_last_accessed_file(folder_path):
     # Get the path of the most recently accessed file in a folder
@@ -45,7 +50,7 @@ def get_last_accessed_file(folder_path):
 def transliterate_last_accessed_file(folder_path):
     # Transliterate the lyrics of the most recently accessed LRC file in a folder
     file = get_last_accessed_file(folder_path)
-    print(f"Transliterating file: {file}")
+    logger.info(f"Transliterating file: {file}")
     lyrics = lrcparser.LrcParser(file)
 
     # Translate each line and transliterate from Japanese to Romaji
