@@ -12,7 +12,8 @@ fh = logging.FileHandler('taskbar.log', encoding='utf-8')
 fh.setLevel(logging.INFO)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
 ch.setFormatter(formatter)
 logger.addHandler(fh)
@@ -22,12 +23,17 @@ logger.addHandler(ch)
 streamlit_process = None
 
 # Define on_transliterate function to handle transliteration
+
+
 def on_transliterate(icon, item):
     logger.info("Transliterate button clicked")
     # Call transliterate function from transliterate module
-    transliterate.transliterate_last_accessed_file(r"C:\Users\Bestfast\AppData\Roaming\foobar2000-v2\lyrics")
+    transliterate.transliterate_last_accessed_file(
+        r"C:\Users\Bestfast\AppData\Roaming\foobar2000-v2\lyrics")
 
 # Define on_edit function to handle editing
+
+
 def on_edit(icon, item):
     logger.info("Edit clicked")
     # Start Streamlit server here
@@ -38,6 +44,8 @@ def on_edit(icon, item):
     streamlit_process = subprocess.Popen(["streamlit", "run", "streamlit.py"])
 
 # Define on_quit function to handle quitting the application
+
+
 def on_quit(icon, item):
     global streamlit_process
     # Terminate Streamlit process if it exists
@@ -46,6 +54,7 @@ def on_quit(icon, item):
         streamlit_process.terminate()
     # Stop the icon
     icon.stop()
+
 
 # Load icon image
 image = Image.open("icon.ico")

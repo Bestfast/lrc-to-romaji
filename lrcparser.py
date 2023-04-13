@@ -1,4 +1,6 @@
 import re
+
+
 class LrcParser:
     def __init__(self, file):
         self.file = file
@@ -24,7 +26,8 @@ class LrcParser:
         lyrics_without_timestamps = []
         for lyric in self.lyrics:
             # Remove any timestamps from the lyric
-            lyric_without_timestamps = re.sub(r'\[\d+:\d+\.\d+\]', '', lyric).strip()
+            lyric_without_timestamps = re.sub(
+                r'\[\d+:\d+\.\d+\]', '', lyric).strip()
             if lyric_without_timestamps:
                 lyrics_without_timestamps.append(lyric_without_timestamps)
         return '\n'.join(lyrics_without_timestamps)
@@ -36,7 +39,6 @@ class LrcParser:
             lines.append(line)
 
         return '\n'.join(lines)
-
 
     def get_timestamps(self):
         return self.timestamps
